@@ -9,10 +9,30 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~3.2.1",
+    "@react-native-async-storage/async-storage": "^1.23.1",
+    "@react-native-community/datetimepicker": "^8.1.1",
+    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/stack": "^6.3.29",
+    "d3-shape": "^3.2.0",
     "expo": "~51.0.17",
+    "expo-linear-gradient": "^13.0.2",
     "expo-status-bar": "~1.12.1",
+    "formik": "^2.4.6",
+    "install": "^0.13.0",
+    "lucide-react-native": "^0.399.0",
     "react": "18.2.0",
-    "react-native": "0.74.2"
+    "react-dom": "18.2.0",
+    "react-native": "0.74.2",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-elements": "^3.4.3",
+    "react-native-modal-datetime-picker": "^17.1.0",
+    "react-native-picker-select": "^9.1.3",
+    "react-native-svg": "^15.3.0",
+    "react-native-svg-charts": "^5.4.0",
+    "react-native-web": "~0.19.10",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
