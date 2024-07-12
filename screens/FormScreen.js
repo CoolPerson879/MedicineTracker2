@@ -19,7 +19,7 @@ import RNPickerSelect from "react-native-picker-select";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { CheckBox } from "react-native-elements";
 import DateTimePickerButton from "../components/DateTimePicker";
-
+import { StatusBar } from "expo-status-bar";
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -122,6 +122,15 @@ const FormScreen = ({ navigation }) => {
               }}
               keyboardShouldPersistTaps="handled" // Persist keyboard dismiss on tap
             >
+              <Text style={isDarkMode ? styles.titleDark : styles.titleLight}>
+                Add Data
+              </Text>
+              <Text
+                style={isDarkMode ? styles.subtitleDark : styles.subtitleLight}
+              >
+                Add hours and more data on this screen. Scroll down to submit
+                and additional options.
+              </Text>
               <View style={isDarkMode ? styles.formDark : styles.form}>
                 <Text style={isDarkMode ? styles.labelDark : styles.label}>
                   Category <Text style={{ color: "red" }}>*</Text>
@@ -252,12 +261,19 @@ const FormScreen = ({ navigation }) => {
                           onChange={(event, selectedDate) => {
                             setFieldValue("time", selectedDate);
                           }}
-                          styles={{
-                            marginLeft: -10,
-                            padding: -10,
-                            backgroundColor: "#3E3E3E",
-                            color: "white",
-                          }}
+                          styles={
+                            isDarkMode
+                              ? {
+                                  padding: -10,
+                                  backgroundColor: "#232323",
+                                  color: "white",
+                                }
+                              : {
+                                  padding: -10,
+                                  backgroundColor: "#FFF",
+                                  color: "white",
+                                }
+                          }
                         />
                         {/* <DateTimePicker
                           value={values.time}
@@ -352,6 +368,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
+  },
+  titleLight: {
+    fontWeight: "bold",
+    marginBottom: 2,
+    paddingBottom: 2,
+    fontSize: 25,
+  },
+  titleDark: {
+    fontWeight: "bold",
+    marginBottom: 2,
+    paddingBottom: 2,
+
+    color: "white",
+  },
+  subtitleLight: {
+    marginBottom: 2,
+    paddingBottom: 2,
+    fontSize: 13,
+    justifyContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  subtitleDark: {
+    marginBottom: 2,
+    paddingBottom: 2,
+    fontSize: 13,
+    justifyContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
+    color: "white",
   },
   containerDark: {
     flex: 1,

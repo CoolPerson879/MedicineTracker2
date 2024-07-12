@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  StatusBar,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
@@ -118,6 +119,15 @@ const DataScreen = ({ navigation }) => {
       [field]: value,
     }));
   };
+
+  useEffect(() => {
+    StatusBar.setBarStyle(isDarkMode ? "light-content" : "dark-content");
+    StatusBar.setHidden(false);
+
+    return () => {
+      StatusBar.setHidden(false); // Ensure it shows when navigating away
+    };
+  }, [isDarkMode]);
 
   const renderDataItem = (label, value, editable, field) => {
     if (!value && !editable) return null;
@@ -234,12 +244,7 @@ const DataScreen = ({ navigation }) => {
                         <Save size={20} color="#FFFFFF" />
                       </TouchableOpacity>
                     ) : (
-                      <TouchableOpacity
-                        style={styles.editButton}
-                        onPress={() => handleEdit(item.id)}
-                      >
-                        <Edit2 size={20} color="#FFFFFF" />
-                      </TouchableOpacity>
+                      <></>
                     )}
                     <TouchableOpacity
                       style={styles.deleteButton}

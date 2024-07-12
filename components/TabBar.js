@@ -17,11 +17,14 @@ import {
 import HomeScreen from "../screens/HomeScreen";
 import DataScreen from "../screens/DataScreen";
 import FormScreen from "../screens/FormScreen";
-import GraphScreen from "../screens/GraphScreen";
+import CookiesPolicy from "../screens/legalScreens/CookiePolicy";
 import SettingsScreen from "../screens/SettingsScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import StatisticsScreen from "../screens/StatisticsScreen";
+import AboutScreen from "../screens/AboutScreen";
+import PrivacyPolicy from "../screens/legalScreens/PrivacyPolicy";
+import TermsAndConditions from "../screens/legalScreens/TermsAndConditions";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -418,6 +421,13 @@ const TabBar = () => {
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Main" component={AppTabs} />
+        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="CookiePolicy" component={CookiesPolicy} />
+        <Stack.Screen
+          name="TermsAndConditions"
+          component={TermsAndConditions}
+        />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -19,6 +19,7 @@
     "expo": "~51.0.17",
     "expo-linear-gradient": "^13.0.2",
     "expo-status-bar": "~1.12.1",
+    "expo-updates": "^0.25.19",
     "formik": "^2.4.6",
     "install": "^0.13.0",
     "lucide-react-native": "^0.399.0",
