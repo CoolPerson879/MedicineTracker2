@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  StatusBar,
+} from "react-native";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -29,6 +35,11 @@ import TermsAndConditions from "../screens/legalScreens/TermsAndConditions";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+export function FocusAwareStatusBar(props) {
+  const isFocused = useIsFocused();
+
+  return isFocused ? <StatusBar {...props} /> : null;
+}
 const CustomTabBarButton = ({ children, onPress, backgroundColor }) => (
   <TouchableOpacity
     style={{

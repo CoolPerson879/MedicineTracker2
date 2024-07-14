@@ -11,6 +11,7 @@ import {
   Platform,
   ScrollView,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -20,6 +21,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { CheckBox } from "react-native-elements";
 import DateTimePickerButton from "../components/DateTimePicker";
 import { StatusBar } from "expo-status-bar";
+import { FocusAwareStatusBar } from "../components/TabBar";
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -88,133 +90,141 @@ const FormScreen = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={isDarkMode ? styles.containerDark : styles.container}
       >
-        <Formik
-          initialValues={{
-            name: "",
-            email: "",
-            number: "",
-            category: "Clinical",
-            date: new Date(),
-            time: new Date(),
-            extra: "",
-            extrafieldone: "",
-            extrafieldtwo: "",
-            extrafieldthree: "",
-            extrafieldfour: "",
-            location: "",
-          }}
-          validationSchema={FormSchema}
-          onSubmit={handleSubmit}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-            setFieldValue,
-          }) => (
-            <ScrollView
-              contentContainerStyle={{
-                ...styles.scrollContainer,
-                paddingBottom: tabBarHeight, // Ensure content is above tab bar
-              }}
-              keyboardShouldPersistTaps="handled" // Persist keyboard dismiss on tap
-            >
-              <Text style={isDarkMode ? styles.titleDark : styles.titleLight}>
-                Add Data
-              </Text>
-              <Text
-                style={isDarkMode ? styles.subtitleDark : styles.subtitleLight}
+        <SafeAreaView>
+          <FocusAwareStatusBar
+            barStyle={isDarkMode ? "light-content" : "dark-content"}
+          />
+          <Formik
+            initialValues={{
+              name: "",
+              email: "",
+              number: "",
+              category: "Clinical",
+              date: new Date(),
+              time: new Date(),
+              extra: "",
+              extrafieldone: "",
+              extrafieldtwo: "",
+              extrafieldthree: "",
+              extrafieldfour: "",
+              location: "",
+            }}
+            validationSchema={FormSchema}
+            onSubmit={handleSubmit}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              setFieldValue,
+            }) => (
+              <ScrollView
+                contentContainerStyle={{
+                  ...styles.scrollContainer,
+                  paddingBottom: tabBarHeight, // Ensure content is above tab bar
+                }}
+                keyboardShouldPersistTaps="handled" // Persist keyboard dismiss on tap
               >
-                Add hours and more data on this screen. Scroll down to submit
-                and additional options.
-              </Text>
-              <View style={isDarkMode ? styles.formDark : styles.form}>
-                <Text style={isDarkMode ? styles.labelDark : styles.label}>
-                  Category <Text style={{ color: "red" }}>*</Text>
+                <Text style={isDarkMode ? styles.titleDark : styles.titleLight}>
+                  Add Data
                 </Text>
-                <RNPickerSelect
-                  onValueChange={(value) => setFieldValue("category", value)}
-                  items={[
-                    { label: "Clinical", value: "Clinical" },
-                    { label: "Extracurricular", value: "Extracurricular" },
-                    { label: "Shadowing", value: "Shadowing" },
-                    { label: "Volunteer", value: "Volunteer" },
-                    { label: "Research", value: "Research" },
-                  ]}
-                  style={{
-                    inputIOS: isDarkMode ? styles.pickerDark : styles.picker,
-                    inputAndroid: styles.picker,
-                    placeholder: { color: "#ccc" },
-                  }}
-                  value={values.category}
-                />
-                {errors.category && touched.category ? (
-                  <Text style={styles.error}>{errors.category}</Text>
-                ) : null}
-
-                <Text style={isDarkMode ? styles.labelDark : styles.label}>
-                  Hours <Text style={{ color: "red" }}>*</Text>
+                <Text
+                  style={
+                    isDarkMode ? styles.subtitleDark : styles.subtitleLight
+                  }
+                >
+                  Add hours and more data on this screen. Scroll down to submit
+                  and additional options.
                 </Text>
-                <TextInput
-                  style={isDarkMode ? styles.inputDark : styles.input}
-                  onChangeText={handleChange("number")}
-                  onBlur={handleBlur("number")}
-                  value={values.number}
-                  keyboardType="numeric"
-                />
-                {errors.number && touched.number ? (
-                  <Text style={styles.error}>{errors.number}</Text>
-                ) : null}
+                <View style={isDarkMode ? styles.formDark : styles.form}>
+                  <Text style={isDarkMode ? styles.labelDark : styles.label}>
+                    Category <Text style={{ color: "red" }}>*</Text>
+                  </Text>
+                  <RNPickerSelect
+                    onValueChange={(value) => setFieldValue("category", value)}
+                    items={[
+                      { label: "Clinical", value: "Clinical" },
+                      { label: "Extracurricular", value: "Extracurricular" },
+                      { label: "Shadowing", value: "Shadowing" },
+                      { label: "Volunteer", value: "Volunteer" },
+                      { label: "Research", value: "Research" },
+                    ]}
+                    style={{
+                      inputIOS: isDarkMode ? styles.pickerDark : styles.picker,
+                      inputAndroid: styles.picker,
+                      placeholder: { color: "#ccc" },
+                    }}
+                    value={values.category}
+                  />
+                  {errors.category && touched.category ? (
+                    <Text style={styles.error}>{errors.category}</Text>
+                  ) : null}
 
-                <Text style={isDarkMode ? styles.labelDark : styles.label}>
-                  Activity Name <Text style={{ color: "red" }}>*</Text>
-                </Text>
-                <TextInput
-                  style={isDarkMode ? styles.inputDark : styles.input}
-                  onChangeText={handleChange("name")}
-                  onBlur={handleBlur("name")}
-                  value={values.name}
-                />
-                {errors.name && touched.name ? (
-                  <Text style={styles.error}>{errors.name}</Text>
-                ) : null}
+                  <Text style={isDarkMode ? styles.labelDark : styles.label}>
+                    Hours <Text style={{ color: "red" }}>*</Text>
+                  </Text>
+                  <TextInput
+                    style={isDarkMode ? styles.inputDark : styles.input}
+                    onChangeText={handleChange("number")}
+                    onBlur={handleBlur("number")}
+                    value={values.number}
+                    keyboardType="numeric"
+                  />
+                  {errors.number && touched.number ? (
+                    <Text style={styles.error}>{errors.number}</Text>
+                  ) : null}
 
-                <Text style={isDarkMode ? styles.labelDark : styles.label}>
-                  Location/Institution
-                </Text>
-                <TextInput
-                  style={isDarkMode ? styles.inputDark : styles.input}
-                  onChangeText={handleChange("location")}
-                  onBlur={handleBlur("location")}
-                  value={values.location}
-                />
-                {errors.location && touched.location ? (
-                  <Text style={styles.error}>{errors.location}</Text>
-                ) : null}
+                  <Text style={isDarkMode ? styles.labelDark : styles.label}>
+                    Activity Name <Text style={{ color: "red" }}>*</Text>
+                  </Text>
+                  <TextInput
+                    style={isDarkMode ? styles.inputDark : styles.input}
+                    onChangeText={handleChange("name")}
+                    onBlur={handleBlur("name")}
+                    value={values.name}
+                  />
+                  {errors.name && touched.name ? (
+                    <Text style={styles.error}>{errors.name}</Text>
+                  ) : null}
 
-                <Text style={isDarkMode ? styles.labelDark : styles.label}>
-                  Description
-                </Text>
-                <TextInput
-                  style={[
-                    isDarkMode ? styles.inputDark : styles.input,
-                    { minHeight: 40, height: "auto" },
-                  ]}
-                  onChangeText={handleChange("extra")}
-                  onBlur={handleBlur("extra")}
-                  value={values.extra}
-                  multiline={true}
-                />
+                  <Text style={isDarkMode ? styles.labelDark : styles.label}>
+                    Location/Institution
+                  </Text>
+                  <TextInput
+                    style={isDarkMode ? styles.inputDark : styles.input}
+                    onChangeText={handleChange("location")}
+                    onBlur={handleBlur("location")}
+                    value={values.location}
+                  />
+                  {errors.location && touched.location ? (
+                    <Text style={styles.error}>{errors.location}</Text>
+                  ) : null}
 
-                <View style={styles.dateTimeContainer}>
-                  <View style={styles.dateTimeInput}>
-                    <Text style={isDarkMode ? styles.labelDark : styles.label}>
-                      Start Date <Text style={{ color: "red" }}>*</Text>
-                    </Text>
-                    {/* <DateTimePicker
+                  <Text style={isDarkMode ? styles.labelDark : styles.label}>
+                    Description
+                  </Text>
+                  <TextInput
+                    style={[
+                      isDarkMode ? styles.inputDark : styles.input,
+                      { minHeight: 40, height: "auto" },
+                    ]}
+                    onChangeText={handleChange("extra")}
+                    onBlur={handleBlur("extra")}
+                    value={values.extra}
+                    multiline={true}
+                  />
+
+                  <View style={styles.dateTimeContainer}>
+                    <View style={styles.dateTimeInput}>
+                      <Text
+                        style={isDarkMode ? styles.labelDark : styles.label}
+                      >
+                        Start Date <Text style={{ color: "red" }}>*</Text>
+                      </Text>
+                      {/* <DateTimePicker
                       value={values.date}
                       mode="date"
                       display="default"
@@ -227,55 +237,55 @@ const FormScreen = ({ navigation }) => {
                         color: "white",
                       }}
                     /> */}
-                    <DateTimePickerButton
-                      value={values.date}
-                      onChange={(event, selectedDate) => {
-                        setFieldValue("date", selectedDate);
-                      }}
-                      styles={
-                        isDarkMode
-                          ? {
-                              padding: -10,
-                              backgroundColor: "#232323",
-                              color: "white",
-                            }
-                          : {
-                              padding: -10,
-                              backgroundColor: "#FFF",
-                              color: "white",
-                            }
-                      }
-                    />
-                  </View>
+                      <DateTimePickerButton
+                        value={values.date}
+                        onChange={(event, selectedDate) => {
+                          setFieldValue("date", selectedDate);
+                        }}
+                        styles={
+                          isDarkMode
+                            ? {
+                                padding: -10,
+                                backgroundColor: "#232323",
+                                color: "white",
+                              }
+                            : {
+                                padding: -10,
+                                backgroundColor: "#FFF",
+                                color: "white",
+                              }
+                        }
+                      />
+                    </View>
 
-                  {isChecked === false && (
-                    <>
-                      <View style={styles.dateTimeInput}>
-                        <Text
-                          style={isDarkMode ? styles.labelDark : styles.label}
-                        >
-                          End Date
-                        </Text>
-                        <DateTimePickerButton
-                          value={values.time}
-                          onChange={(event, selectedDate) => {
-                            setFieldValue("time", selectedDate);
-                          }}
-                          styles={
-                            isDarkMode
-                              ? {
-                                  padding: -10,
-                                  backgroundColor: "#232323",
-                                  color: "white",
-                                }
-                              : {
-                                  padding: -10,
-                                  backgroundColor: "#FFF",
-                                  color: "white",
-                                }
-                          }
-                        />
-                        {/* <DateTimePicker
+                    {isChecked === false && (
+                      <>
+                        <View style={styles.dateTimeInput}>
+                          <Text
+                            style={isDarkMode ? styles.labelDark : styles.label}
+                          >
+                            End Date
+                          </Text>
+                          <DateTimePickerButton
+                            value={values.time}
+                            onChange={(event, selectedDate) => {
+                              setFieldValue("time", selectedDate);
+                            }}
+                            styles={
+                              isDarkMode
+                                ? {
+                                    padding: -10,
+                                    backgroundColor: "#232323",
+                                    color: "white",
+                                  }
+                                : {
+                                    padding: -10,
+                                    backgroundColor: "#FFF",
+                                    color: "white",
+                                  }
+                            }
+                          />
+                          {/* <DateTimePicker
                           value={values.time}
                           mode="date"
                           display="default"
@@ -289,76 +299,81 @@ const FormScreen = ({ navigation }) => {
                             color: "white",
                           }}
                         /> */}
-                      </View>
+                        </View>
+                      </>
+                    )}
+                  </View>
+                  {/* Checkbox */}
+                  <View style={styles.checkboxContainer}>
+                    <CheckBox
+                      checked={isChecked}
+                      onPress={() => setIsChecked(!isChecked)}
+                      containerStyle={styles.checkbox}
+                      checkedColor="#EEAAEA"
+                    />
+                    <Text
+                      style={
+                        isDarkMode
+                          ? styles.checkboxLabelDark
+                          : styles.checkboxLabel
+                      }
+                    >
+                      In progress
+                    </Text>
+                  </View>
+                  <Button onPress={handleSubmit} title="Submit" />
+                  <Button
+                    onPress={toggleExpanded}
+                    title={
+                      expanded
+                        ? "Hide Additional Fields"
+                        : "Show Additional Fields"
+                    }
+                  />
+
+                  {expanded && (
+                    <>
+                      <Text
+                        style={isDarkMode ? styles.labelDark : styles.label}
+                      >
+                        Institution Email
+                      </Text>
+                      <TextInput
+                        style={isDarkMode ? styles.inputDark : styles.input}
+                        onChangeText={handleChange("email")}
+                        onBlur={handleBlur("email")}
+                        value={values.email}
+                      />
+                      {errors.email && touched.email ? (
+                        <Text style={styles.error}>{errors.email}</Text>
+                      ) : null}
+
+                      <Text
+                        style={isDarkMode ? styles.labelDark : styles.label}
+                      >
+                        Institution Phone Number
+                      </Text>
+                      <TextInput
+                        style={isDarkMode ? styles.inputDark : styles.input}
+                        onChangeText={handleChange("extrafieldtwo")}
+                        onBlur={handleBlur("extrafieldtwo")}
+                        value={values.extrafieldtwo}
+                        keyboardType="numeric"
+                      />
+                      {errors.extrafieldtwo && touched.extrafieldtwo ? (
+                        <Text style={styles.error}>{errors.extrafieldtwo}</Text>
+                      ) : null}
                     </>
                   )}
-                </View>
-                {/* Checkbox */}
-                <View style={styles.checkboxContainer}>
-                  <CheckBox
-                    checked={isChecked}
-                    onPress={() => setIsChecked(!isChecked)}
-                    containerStyle={styles.checkbox}
-                    checkedColor="#EEAAEA"
-                  />
-                  <Text
-                    style={
-                      isDarkMode
-                        ? styles.checkboxLabelDark
-                        : styles.checkboxLabel
-                    }
-                  >
-                    In progress
+
+                  <Text>
+                    <Text style={{ color: "red" }}>* Required</Text>
                   </Text>
                 </View>
-                <Button onPress={handleSubmit} title="Submit" />
-                <Button
-                  onPress={toggleExpanded}
-                  title={
-                    expanded
-                      ? "Hide Additional Fields"
-                      : "Show Additional Fields"
-                  }
-                />
-
-                {expanded && (
-                  <>
-                    <Text style={isDarkMode ? styles.labelDark : styles.label}>
-                      Institution Email
-                    </Text>
-                    <TextInput
-                      style={isDarkMode ? styles.inputDark : styles.input}
-                      onChangeText={handleChange("email")}
-                      onBlur={handleBlur("email")}
-                      value={values.email}
-                    />
-                    {errors.email && touched.email ? (
-                      <Text style={styles.error}>{errors.email}</Text>
-                    ) : null}
-
-                    <Text style={isDarkMode ? styles.labelDark : styles.label}>
-                      Institution Phone Number
-                    </Text>
-                    <TextInput
-                      style={isDarkMode ? styles.inputDark : styles.input}
-                      onChangeText={handleChange("extrafieldtwo")}
-                      onBlur={handleBlur("extrafieldtwo")}
-                      value={values.extrafieldtwo}
-                      keyboardType="numeric"
-                    />
-                    {errors.extrafieldtwo && touched.extrafieldtwo ? (
-                      <Text style={styles.error}>{errors.extrafieldtwo}</Text>
-                    ) : null}
-                  </>
-                )}
-
-                <Text>
-                  <Text style={{ color: "red" }}>* Required</Text>
-                </Text>
-              </View>
-            </ScrollView>
-          )}
-        </Formik>
+              </ScrollView>
+            )}
+          </Formik>
+        </SafeAreaView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );

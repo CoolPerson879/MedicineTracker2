@@ -4,6 +4,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LineChart } from "react-native-chart-kit";
+import { FocusAwareStatusBar } from "../components/TabBar";
 
 const StatisticsScreen = () => {
   const [data, setData] = useState([]);
@@ -77,6 +78,9 @@ const StatisticsScreen = () => {
     <SafeAreaView
       style={[styles.container, isDarkMode && styles.containerDark]}
     >
+      <FocusAwareStatusBar
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
+      />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={isDarkMode ? styles.titleDark : styles.title}>
           Statistics

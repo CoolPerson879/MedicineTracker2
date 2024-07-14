@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { FocusAwareStatusBar } from "../components/TabBar";
 
 const HomeScreen = ({ navigation }) => {
   const [totals, setTotals] = useState({
@@ -97,6 +98,8 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <>
+      <FocusAwareStatusBar hidden backgroundColor="#ecf0f1" />
+
       {isDarkMode == false && (
         <View style={styles.container}>
           <StatusBar

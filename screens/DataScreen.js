@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import { FocusAwareStatusBar } from "../components/TabBar";
 import {
   Hospital,
   Lightbulb,
@@ -180,6 +181,9 @@ const DataScreen = ({ navigation }) => {
   };
   return (
     <>
+      <FocusAwareStatusBar
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
+      />
       {isDarkMode === false && (
         <LinearGradient colors={["#94bbe9", "#eeaeca"]} style={styles.gradient}>
           <SafeAreaView style={styles.safeArea}>

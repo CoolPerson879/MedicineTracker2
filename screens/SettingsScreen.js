@@ -11,6 +11,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import * as Updates from "expo-updates"; // Import the Updates module
+import { FocusAwareStatusBar } from "../components/TabBar";
 
 const darkHome = require("../assets/darkhome.jpeg");
 const lightHome = require("../assets/lighthome.jpeg");
@@ -90,6 +91,9 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={isDark ? styles.containerDark : styles.container}>
+      <FocusAwareStatusBar
+        barStyle={isDark ? "light-content" : "dark-content"}
+      />
       <Text style={isDark ? styles.titleDark : styles.title}>Settings</Text>
       <Text style={isDark ? styles.subtitleDark : styles.subtitle}>
         Choose a mode:
@@ -148,9 +152,17 @@ const SettingsScreen = ({ navigation }) => {
             color="#FFFFFF"
           />
         </View>
-        <Text style={styles.aboutButtonText}>About</Text>
+        <Text
+          style={isDark ? styles.aboutButtonTextDark : styles.aboutButtonText}
+        >
+          About
+        </Text>
         <View style={styles.chevronContainer}>
-          <Ionicons name="chevron-forward" size={24} color="#000" />
+          <Ionicons
+            name="chevron-forward"
+            size={24}
+            color={isDark ? "#FFF" : "#000"}
+          />
         </View>
       </TouchableOpacity>
     </SafeAreaView>
@@ -262,9 +274,16 @@ const styles = StyleSheet.create({
     borderColor: "#CED0CE",
     textAlign: "left",
   },
+
   aboutButtonText: {
     fontSize: 16,
     color: "#000",
+    fontWeight: "bold",
+    textAlign: "left",
+  },
+  aboutButtonTextDark: {
+    fontSize: 16,
+    color: "#FFF",
     fontWeight: "bold",
     textAlign: "left",
   },
