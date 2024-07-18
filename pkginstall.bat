@@ -1,0 +1,1 @@
+ npm i @react-native-async-storage/async-storage @react-native-community/datetimepicker @react-navigation/bottom-tabs @react-navigation/native @react-navigation/stack expo-linear-gradient expo-status-bar expo-updates formik lucide-react-native react-native-chart-kit react-native-elements react-native-modal-datetime-picker react-native-svg react-native-svg-charts yup
