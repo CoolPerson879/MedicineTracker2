@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, Image, StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { FocusAwareStatusBar } from "../components/TabBar";
+import { FocusAwareStatusBar } from "./_layout";
+import { useRouter } from 'expo-router';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   const [totals, setTotals] = useState({
     Clinical: 0,
     Extracurricular: 0,
@@ -42,11 +43,11 @@ const HomeScreen = ({ navigation }) => {
         console.error("Error checking dark mode status", error);
       }
     };
-
+    
     checkDarkModeStatus();
     fetchUserData();
   }, []);
-
+const navigation = useRouter()
   const calculateTotals = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("formData");
